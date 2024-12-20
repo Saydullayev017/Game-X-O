@@ -26,6 +26,15 @@ function currentStep() {
     let num = +this.getAttribute('data-ceil');
     if(!this.textContent) {
         this.innerText = player;
+        player === 'X' ? dataX.push(num) : dataO.push(num);
+        if(
+            (dataX.length > 2 || dataO.length > 2) && (checkWin(dataO, num) || checkWin(dataX, num))
+        ){
+            for(let i = 0; i < item.length; i++) {
+                item[i].removeEventListener('click', currentStep);
+            }
+            return(message.innerText = 'Победил игрок ' + player);
+        }
         changePlayer();
         stepCount++;
         (stepCount === 9) ? (message.innerText = 'Ничья'):
@@ -34,7 +43,8 @@ function currentStep() {
 }
 
 function changePlayer() {
-    player === 'X' ? (player = 'O') : (player = 'X'); 
+    player === 'X' ? (player = 'O') : (player = 'X');
+
 }
 
 reset.addEventListener('click', function() {
@@ -46,4 +56,26 @@ reset.addEventListener('click', function() {
     player = 'X';
     stepCount = 0;
     message.innerText = 'Ходит игрок ' + player
+
+    for(let i = 0; i < item.length; i++) {
+        item[i].addEventListener('click', currentStep);
+    }
 })
+
+function checkWin(arr, number) {
+    for(let w = 0, wlen = winCombinations.length; w < wlen; w++) {
+        let someWinArr = winCombinations[w];
+        let count = 0;
+        if(someWinArr.indexOf(number) !== -1){
+            for(let k = 0, klen = someWinArr.length; k < klen; k++){
+                if(arr.indexOf(someWinArr[k]) !== -1){
+                    count++;
+                    if(count === 3){
+                        return true;
+                    }
+                }
+            }
+            count = 0;
+        } 
+    }
+}
