@@ -26,7 +26,7 @@ function currentStep() {
     let num = +this.getAttribute('data-ceil');
     if(!this.textContent) {
         this.innerText = player;
-        player === 'X' ? dataX.push(num) : dataO.push(num);
+        player === 'X' ? dataX.push(num) && this.classList.add('x') : dataO.push(num) && this.classList.add('o');
         if(
             (dataX.length > 2 || dataO.length > 2) && (checkWin(dataO, num) || checkWin(dataX, num))
         ){
@@ -59,6 +59,7 @@ reset.addEventListener('click', function() {
 
     for(let i = 0; i < item.length; i++) {
         item[i].addEventListener('click', currentStep);
+        item[i].classList.remove('x', 'o');
     }
 })
 
