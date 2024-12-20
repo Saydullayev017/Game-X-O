@@ -1,6 +1,6 @@
 ### Game --> Tic-Tac-Toe `Крестики-нолики`
 ---
-Деплой : `versel.com` 
+Деплой : `vercel.com` 
 https://game-xo-henna.vercel.app 
 
 ![deploy](md.jpg)
