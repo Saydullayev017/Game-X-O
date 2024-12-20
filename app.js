@@ -17,3 +17,33 @@ let winCombinations = [
 
 let dataX = [];
 let dataO = [];
+
+for(let i = 0; i < item.length; i++) {
+    item[i].addEventListener('click', currentStep);
+}
+
+function currentStep() {
+    let num = +this.getAttribute('data-ceil');
+    if(!this.textContent) {
+        this.innerText = player;
+        changePlayer();
+        stepCount++;
+        (stepCount === 9) ? (message.innerText = 'Ничья'):
+        (message.innerText = 'Ходит игрок ' + player)
+    }
+}
+
+function changePlayer() {
+    player === 'X' ? (player = 'O') : (player = 'X'); 
+}
+
+reset.addEventListener('click', function() {
+    for(let i = 0; i < item.length; i++) {
+        item[i].innerText = '';
+    }
+    dataO = [];
+    dataX = [];
+    player = 'X';
+    stepCount = 0;
+    message.innerText = 'Ходит игрок ' + player
+})
